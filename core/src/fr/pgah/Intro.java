@@ -50,6 +50,7 @@ public class Intro extends ApplicationAdapter {
     testerBordures();
     majCoordonnees();
     dessiner();
+    // dummy
   }
 
   private void dessiner() {
