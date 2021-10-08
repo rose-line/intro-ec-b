@@ -51,6 +51,7 @@ public class Intro extends ApplicationAdapter {
     majCoordonnees();
     dessiner();
     // dummy
+    // dummy 2
   }
 
   private void dessiner() {
