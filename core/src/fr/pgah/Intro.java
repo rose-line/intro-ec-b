@@ -13,9 +13,12 @@ public class Intro extends ApplicationAdapter {
   Texture[] imgs;
   int[] coordonneesX;
   int[] coordonneesY;
+  int[] largeursImgs;
   int[] hauteursImgs;
-  boolean[] montent;
+  boolean[] versLeHaut;
+  boolean[] versLaDroite;
   int hauteurFenetre;
+  int largeurFenetre;
 
   @Override
   public void create() {
@@ -37,11 +40,12 @@ public class Intro extends ApplicationAdapter {
     hauteursImgs[0] = imgs[0].getHeight();
     hauteursImgs[1] = imgs[1].getHeight();
 
-    montent = new boolean[2];
-    montent[0] = true;
-    montent[1] = false;
+    versLeHaut = new boolean[2];
+    versLeHaut[0] = true;
+    versLeHaut[1] = false;
 
     hauteurFenetre = Gdx.graphics.getHeight();
+    largeurFenetre = Gdx.graphics.getWidth();
   }
 
   @Override
@@ -50,8 +54,6 @@ public class Intro extends ApplicationAdapter {
     testerBordures();
     majCoordonnees();
     dessiner();
-    // dummy
-    // dummy 2
   }
 
   private void dessiner() {
@@ -69,7 +71,7 @@ public class Intro extends ApplicationAdapter {
     for (int i = 0; i <= 1; i++) {
       coordonneesX[i] = coordonneesX[i] + 1; // incrémentation
 
-      if (montent[i]) {
+      if (versLeHaut[i]) {
         coordonneesY[i] = coordonneesY[i] + 1;
       } else {
         coordonneesY[i] = coordonneesY[i] - 1;
@@ -78,15 +80,31 @@ public class Intro extends ApplicationAdapter {
   }
 
   private void testerBordures() {
-    // Test de bordure supérieure
-    if (y + hauteurImage == hauteurFenetre) {
-      onMonte = false;
+
+    for (int i = 0; i <= 1; i++) {
+      // Test de bordure supérieure
+      if (coordonneesY[i] + hauteursImgs[i] == hauteurFenetre) {
+        versLeHaut[i] = false;
+      }
+
+      // Test de bordure inférieure
+      if (coordonneesY[i] == 0) {
+        versLeHaut[i] = true;
+      }
+
+      // Test de bordure droite
+      if (coordonneesX[i] + largeursImgs[i] == largeurFenetre) {
+        versLaDroite[i] = false;
+      }
+
+      // Test de bordure gauche
+      if (coordonneesX[i] == 0) {
+        versLaDroite[i] = true;
+      }
     }
 
-    // Test de bordure inférieure
-    if (y == 0) {
-      onMonte = true;
-    }
+
+
   }
 
   public void reinitialiserBackground() {
